@@ -1,4 +1,4 @@
-name: CI/CD — Build, Test & Deploy
+name: CI-CD Build Test Deploy
 
 on:
   push:
@@ -11,7 +11,7 @@ on:
 jobs:
 
   test:
-    name: Lint & Test
+    name: Lint and Test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -20,7 +20,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version: '1.21'
+          go-version: "1.21"
           cache: true
 
       - name: Install dependencies
@@ -46,7 +46,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version: '1.21'
+          go-version: "1.21"
           cache: true
 
       - name: Install dependencies
@@ -74,15 +74,8 @@ jobs:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          vercel-args: '--prod'
+          vercel-args: "--prod"
           working-directory: ./
 
       - name: Print URL
-        run: echo "Live at ${{ steps.deploy.outputs.preview-url }}"
-```
-
----
-
-In GitHub, create the file at exactly this path:
-```
-.github/workflows/main.yml
+        run: echo "Deployed"
