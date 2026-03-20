@@ -1,0 +1,109 @@
+{{template "layout" .}}
+{{define "content"}}
+<div class="checkin-page">
+  <div class="container container-sm">
+    <div class="page-header">
+      <p class="eyebrow">Daily Micro-Interaction</p>
+      <h1 class="page-title">How are you today?</h1>
+      <p class="page-sub">Two minutes of honest reflection. This is just for you.</p>
+    </div>
+
+    {{if .Alert}}
+    <div class="trigger-alert">
+      <div class="trigger-alert-icon">⚠</div>
+      <div>
+        <p class="trigger-alert-title">High stress detected</p>
+        <p class="trigger-alert-body">{{.Alert}}</p>
+      </div>
+    </div>
+    {{end}}
+
+    {{if .Entry}}
+    <div class="checkin-success">
+      <p class="checkin-success-title">Check-in logged ✓</p>
+      <p>Mood score: <strong>{{.Entry.Score}}/10</strong>{{if .Entry.Trigger}} &nbsp;·&nbsp; Trigger: <strong>{{.Entry.Trigger}}</strong>{{end}}</p>
+      {{if .Entry.Note}}<p class="checkin-note-show" style="margin-top:0.5rem">"{{.Entry.Note}}"</p>{{end}}
+      <div class="checkin-success-actions">
+        <a href="/coach" class="btn-primary btn-sm">Open coach →</a>
+        <a href="/dashboard" class="btn-ghost">Dashboard</a>
+      </div>
+    </div>
+    {{else}}
+
+    {{if .TodayPrompt}}
+    <div class="prompt-box" style="background:{{.StyleInfo.BgColor}};border-color:{{.StyleInfo.Color}}40;margin-bottom:2rem">
+      <p class="prompt-label">Today's reflection prompt</p>
+      <p class="prompt-text">{{.TodayPrompt}}</p>
+    </div>
+    {{end}}
+
+    <form method="POST" action="/checkin" class="checkin-form" id="checkin-form">
+      <div class="form-group">
+        <label class="form-label">Mood right now</label>
+        <div class="mood-slider-wrap">
+          <input type="range" name="score" id="mood-slider" min="1" max="10" value="6" class="mood-slider">
+          <div class="mood-labels">
+            <span>1 · Overwhelmed</span>
+            <span id="mood-val" class="mood-val" style="color:{{.StyleInfo.Color}}">6</span>
+            <span>10 · Grounded</span>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Any trigger today? <span class="form-optional">(optional)</span></label>
+        <select name="trigger" class="form-select">
+          <option value="">— None / not sure</option>
+          <option>Conflict with partner</option>
+          <option>Work stress</option>
+          <option>Feeling distant from someone</option>
+          <option>Feeling crowded or overwhelmed</option>
+          <option>Uncertainty about a relationship</option>
+          <option>A moment of real connection</option>
+          <option>Loneliness</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">A note to yourself <span class="form-optional">(optional)</span></label>
+        <textarea name="note" class="form-textarea" rows="3" placeholder="What's present for you today? No pressure to explain."></textarea>
+      </div>
+      <button type="submit" class="btn-primary" id="checkin-submit">Log check-in <span class="btn-arrow">→</span></button>
+    </form>
+    {{end}}
+
+    <div class="checkin-streak">
+      <p class="streak-label">Your streak</p>
+      <div class="streak-dots" id="streak-dots"></div>
+      <p class="streak-note">7 days · keep going</p>
+    </div>
+  </div>
+</div>
+<script>
+var slider = document.getElementById('mood-slider');
+var val = document.getElementById('mood-val');
+if (slider && val) {
+  slider.addEventListener('input', function() {
+    val.textContent = this.value;
+    var v = parseInt(this.value);
+    val.style.color = v <= 3 ? '#B06060' : v <= 6 ? '#B59050' : '#4A8C7A';
+  });
+}
+var form = document.getElementById('checkin-form');
+if (form) {
+  form.addEventListener('submit', function() {
+    var btn = document.getElementById('checkin-submit');
+    if (btn) { btn.disabled = true; btn.innerHTML = 'Saving…'; }
+  });
+}
+// Build streak dots
+(function() {
+  var dots = document.getElementById('streak-dots');
+  if (!dots) return;
+  for (var i = 0; i < 7; i++) {
+    var d = document.createElement('div');
+    d.className = 'streak-dot' + (i < 6 ? ' filled' : '');
+    dots.appendChild(d);
+  }
+})();
+</script>
+{{end}}

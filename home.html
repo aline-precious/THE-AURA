@@ -1,0 +1,89 @@
+{{template "layout" .}}
+{{define "content"}}
+<div class="hero">
+  <div class="hero-orb orb1"></div>
+  <div class="hero-orb orb2"></div>
+  <div class="hero-orb orb3"></div>
+  <div class="hero-content">
+    <p class="eyebrow">A next-generation relationship platform</p>
+    <h1 class="hero-title">How do you <em>love</em><br>and connect?</h1>
+    <p class="hero-sub">Attachment styles shape how we seek closeness, handle distance, and experience the people we care about most. AttachSecure moves beyond the quiz — toward lasting, earned security.</p>
+    <div class="hero-cta-row">
+      <a href="/quiz" class="btn-primary">Take the free assessment <span class="btn-arrow">→</span></a>
+      <a href="/about" class="btn-ghost">Learn more</a>
+    </div>
+  </div>
+</div>
+
+<section class="styles-section">
+  <div class="container">
+    <p class="section-eyebrow">The four attachment styles</p>
+    <h2 class="section-title">Where do you recognise yourself?</h2>
+    <div class="styles-grid">
+      <a href="/quiz" class="style-card" style="--card-color:#4A8C7A;--card-bg:#F0F5F2">
+        <span class="style-label">Secure</span>
+        <span class="style-tagline">The safe harbour</span>
+        <p class="style-desc">Comfortable with closeness and independence. Resilient through conflict. The earned destination of this journey.</p>
+      </a>
+      <a href="/quiz" class="style-card" style="--card-color:#B06060;--card-bg:#F5F0F0">
+        <span class="style-label">Anxious</span>
+        <span class="style-tagline">The devoted heart</span>
+        <p class="style-desc">Deeply empathic, attuned to others, and quietly terrified of being left. You love wholeheartedly — sometimes painfully so.</p>
+      </a>
+      <a href="/quiz" class="style-card" style="--card-color:#7A6E9E;--card-bg:#F2F0F5">
+        <span class="style-label">Avoidant</span>
+        <span class="style-tagline">The independent soul</span>
+        <p class="style-desc">Extraordinarily self-sufficient. Closeness can feel threatening — yet the longing for it is real.</p>
+      </a>
+      <a href="/quiz" class="style-card" style="--card-color:#B59050;--card-bg:#F5F2EE">
+        <span class="style-label">Disorganized</span>
+        <span class="style-tagline">The complex navigator</span>
+        <p class="style-desc">Pulled toward connection and terrified by it simultaneously. The most complex style — and the most responsive to healing.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="features-section">
+  <div class="container">
+    <p class="section-eyebrow">Platform features</p>
+    <h2 class="section-title">Beyond the quiz</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon" style="background:#EAF3E8;color:#4A8C7A">⚡</div>
+        <h3>Dynamic Analyzer</h3>
+        <p>Map the interaction patterns between two attachment styles. Understand the Anxious-Avoidant trap and other relational dynamics with clarity.</p>
+        <a href="/coach?partner=avoidant" class="feature-link">Try the analyzer →</a>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:#F0EEF8;color:#7A6E9E">💬</div>
+        <h3>AI Communication Coach</h3>
+        <p>Paste a message you're about to send. The coach reframes it in a way your partner can actually receive — no defensiveness, no shutdown.</p>
+        <a href="/coach" class="feature-link">Open the coach →</a>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:#F5F0F0;color:#B06060">📊</div>
+        <h3>Progress Dashboard</h3>
+        <p>Track your movement toward earned security. Security score, mood trends, check-in streaks, and weekly insights.</p>
+        <a href="/dashboard" class="feature-link">View dashboard →</a>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:#F5F2EE;color:#B59050">🌱</div>
+        <h3>Daily Check-ins</h3>
+        <p>Two-minute micro-interactions that keep your awareness sharp. Mood logging, trigger alerts, and daily prompts tailored to your style.</p>
+        <a href="/checkin" class="feature-link">Start today →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-card">
+      <h2 class="cta-title">Ready to understand yourself<br>more deeply?</h2>
+      <p class="cta-sub">The assessment takes 3–4 minutes. No account required.</p>
+      <a href="/quiz" class="btn-primary">Begin the assessment <span class="btn-arrow">→</span></a>
+    </div>
+  </div>
+</section>
+{{end}}

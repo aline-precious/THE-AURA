@@ -1,0 +1,113 @@
+{{template "layout" .}}
+{{define "content"}}
+<div class="dashboard-page">
+  <div class="container">
+    <div class="page-header">
+      <div class="dash-header">
+        <div>
+          <p class="eyebrow">Your personal space</p>
+          <h1 class="page-title">Dashboard</h1>
+        </div>
+        <div class="dash-style-badge" style="background:{{.StyleInfo.BgColor}};color:{{.StyleInfo.Color}}">
+          {{.StyleInfo.Label}} &nbsp;·&nbsp; {{.StyleInfo.Tagline}}
+        </div>
+      </div>
+    </div>
+
+    {{if not .QuizDone}}
+    <div class="alert-banner">
+      <p>You haven't taken the assessment yet. <a href="/quiz">Take the quiz</a> to unlock your personalised dashboard.</p>
+    </div>
+    {{end}}
+
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <span class="metric-label">Security Score</span>
+        <span class="metric-value" style="color:{{.StyleInfo.Color}}">{{.SecScore}}</span>
+        <span class="metric-sub">/ 100 &nbsp;·&nbsp; +7 this week</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-label">Check-in Streak</span>
+        <span class="metric-value">7</span>
+        <span class="metric-sub">days &nbsp;·&nbsp; personal best</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-label">Avg Mood</span>
+        <span class="metric-value">6.4</span>
+        <span class="metric-sub">/ 10 &nbsp;·&nbsp; this week</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-label">Coach Sessions</span>
+        <span class="metric-value">12</span>
+        <span class="metric-sub">messages translated</span>
+      </div>
+    </div>
+
+    <div class="dash-grid">
+      <div class="dash-card">
+        <h2 class="dash-card-title">Security progress</h2>
+        <div class="chart-wrap">
+          <div class="bar-chart">
+            {{range .WeeklyData}}
+            <div class="bar-col">
+              <div class="bar-bar" style="background:{{$.StyleInfo.Color}}" data-h="{{intVal .SecurityScore}}"></div>
+              <span class="bar-label">Wk {{.Week}}</span>
+            </div>
+            {{end}}
+          </div>
+        </div>
+        <p class="dash-card-note">Consistent engagement raises your security baseline over time.</p>
+      </div>
+
+      <div class="dash-card" style="background:{{.StyleInfo.BgColor}};border-color:{{.StyleInfo.Color}}20">
+        <h2 class="dash-card-title">Today's reflection</h2>
+        <p class="prompt-text-dash">{{.TodayPrompt}}</p>
+        <a href="/checkin" class="btn-primary btn-sm" style="background:{{.StyleInfo.Color}};border:none">Log check-in →</a>
+      </div>
+
+      <div class="dash-card">
+        <h2 class="dash-card-title">Quick actions</h2>
+        <div class="quick-actions">
+          <a href="/checkin" class="quick-action-btn">
+            <span class="qa-icon">🌿</span>
+            <div><strong>Daily Check-in</strong><span>Log your mood &amp; triggers</span></div>
+          </a>
+          <a href="/coach" class="quick-action-btn">
+            <span class="qa-icon">💬</span>
+            <div><strong>AI Coach</strong><span>Translate a message</span></div>
+          </a>
+          <a href="/coach?partner=avoidant" class="quick-action-btn">
+            <span class="qa-icon">⚡</span>
+            <div><strong>Dynamic Analyzer</strong><span>Map your pairing</span></div>
+          </a>
+          <a href="/quiz" class="quick-action-btn">
+            <span class="qa-icon">🔄</span>
+            <div><strong>Re-take Quiz</strong><span>Styles evolve over time</span></div>
+          </a>
+        </div>
+      </div>
+
+      <div class="dash-card">
+        <h2 class="dash-card-title">Your style: {{.StyleInfo.Label}}</h2>
+        <p class="dash-style-summary">{{.StyleInfo.Summary}}</p>
+        <div class="growth-box" style="margin-top:1rem;margin-bottom:0">
+          <p class="growth-label">Growth edge</p>
+          <p class="growth-text">{{.StyleInfo.Growth}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+window.addEventListener('load', function() {
+  document.querySelectorAll('.bar-bar').forEach(function(el) {
+    var h = parseInt(el.getAttribute('data-h')) * 2;
+    el.style.height = '0px';
+    setTimeout(function() {
+      el.style.transition = 'height 0.7s cubic-bezier(0.4,0,0.2,1)';
+      el.style.height = h + 'px';
+    }, 200);
+  });
+});
+</script>
+{{end}}

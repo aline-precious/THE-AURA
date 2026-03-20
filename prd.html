@@ -1,0 +1,152 @@
+{{template "layout" .}}
+{{define "content"}}
+<div class="prd-page">
+  <div class="container container-sm">
+    <div class="page-header">
+      <p class="eyebrow">Product Requirements Document · v1.0</p>
+      <h1 class="page-title">AttachSecure PRD</h1>
+      <p class="page-sub">A next-generation Attachment Style &amp; Relationship Growth Platform</p>
+    </div>
+    <div class="prd-doc">
+
+      <section class="prd-section">
+        <h2>1. Product Vision</h2>
+        <p>AttachSecure moves beyond a personality quiz to become a living growth platform. It helps individuals and couples transition from insecure attachment styles toward Earned Security through data-tracking, AI coaching, and professional integration. The core premise: <em>security is not a trait you have — it is a capacity you develop.</em></p>
+      </section>
+
+      <section class="prd-section">
+        <h2>2. Expanded Feature Set</h2>
+        <h3>2.1 The Dynamic Analyzer</h3>
+        <p>Maps interaction patterns between two attachment styles. Not a compatibility score — a lens for understanding the <em>mechanics</em> of relational friction.</p>
+        <ul>
+          <li><strong>Anxious-Avoidant Trap:</strong> The anxious partner's bids for closeness trigger the avoidant partner's withdrawal — amplifying the anxious partner's fear and pursuit. Both parties respond rationally to their own nervous systems, but the cycle feeds itself. The Analyzer names this clearly and offers interruption strategies for each partner.</li>
+          <li><strong>Secure-Anxious:</strong> A stabilising pairing with co-dependency risk. The Analyzer warns when the secure partner functions as an external regulator rather than a model.</li>
+          <li><strong>Disorganized-Secure:</strong> Potentially the most healing configuration. The Analyzer equips the secure partner with specific boundary-holding tools.</li>
+          <li>All eight pairings are documented with: (a) core dynamic, (b) typical pain point, (c) growth gift, and (d) communication strategies for each role.</li>
+        </ul>
+        <h3>2.2 AI Communication Coach</h3>
+        <p>Takes a message the user is about to send and reframes it to reduce defensiveness and invite connection.</p>
+        <ul>
+          <li>User inputs their attachment style (auto-populated) and types the message.</li>
+          <li>System applies a rule-based translation layer trained on attachment theory and Nonviolent Communication (NVC) principles.</li>
+          <li>Output: original message, translated message, and a one-line note explaining what the original might have triggered.</li>
+          <li><strong>Anxious translations:</strong> separate accusation from need, add explicit requests, remove catastrophising language.</li>
+          <li><strong>Avoidant translations:</strong> add return signal to withdrawal, insert one small emotional disclosure, replace shutdown language.</li>
+          <li><strong>Disorganized translations:</strong> resolve approach-avoidance mixed signals into a single clear request.</li>
+          <li><em>v2 roadmap:</em> Two-way mode where both partners translate simultaneously via LLM API integration.</li>
+        </ul>
+        <h3>2.3 Progress Dashboard</h3>
+        <p>Tracks movement toward Earned Security using:</p>
+        <ul>
+          <li><strong>Security Score (0–100):</strong> Weighted composite of quiz answer distribution, check-in mood trends, and streak consistency.</li>
+          <li><strong>Mood Trend:</strong> 7-day and 30-day rolling averages from daily check-ins. Visualised as an animated bar chart.</li>
+          <li><strong>Trigger Frequency:</strong> How often high-stress events are logged and whether trigger types shift over time.</li>
+          <li><strong>Check-in Streak:</strong> Consecutive daily engagement. Research supports consistent self-reflection as intrinsically therapeutic.</li>
+          <li><strong>Coach Engagement:</strong> Number of messages translated, indicating active practice of secure communication.</li>
+        </ul>
+      </section>
+
+      <section class="prd-section">
+        <h2>3. User Roles &amp; Permissions</h2>
+        <div class="role-table-wrap">
+          <table class="role-table">
+            <thead>
+              <tr><th>Feature</th><th>Individual Seeker</th><th>Connected Couple</th><th>Licensed Therapist</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Attachment Assessment</td><td>✓</td><td>✓ each partner</td><td>✓ assigns to clients</td></tr>
+              <tr><td>Personal Dashboard</td><td>✓</td><td>✓</td><td>Read-only client view</td></tr>
+              <tr><td>Dynamic Analyzer</td><td>✓ solo</td><td>✓ live pairing</td><td>✓ any client pair</td></tr>
+              <tr><td>AI Coach</td><td>✓</td><td>✓ joint mode</td><td>✓ + session export</td></tr>
+              <tr><td>Partner Linking</td><td>—</td><td>✓</td><td>✓ manages groups</td></tr>
+              <tr><td>Client Management Panel</td><td>—</td><td>—</td><td>✓</td></tr>
+              <tr><td>Progress Reports (PDF)</td><td>Self only</td><td>Shared with partner</td><td>All managed clients</td></tr>
+              <tr><td>Trigger Alert Notifications</td><td>In-app only</td><td>Optional partner notify</td><td>Alert to therapist inbox</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <h3>Therapist Dashboard specifics</h3>
+        <ul>
+          <li>Client roster with individual security score trajectories</li>
+          <li>Aggregate trigger pattern report (e.g. "Client logs high-stress events primarily on Sundays")</li>
+          <li>Session preparation view: last 7 days of check-ins and coach interactions per client</li>
+          <li>Note-taking sidebar that attaches to client profile</li>
+          <li>HIPAA-compliant data handling (v2 compliance roadmap)</li>
+        </ul>
+      </section>
+
+      <section class="prd-section">
+        <h2>4. Daily Micro-Interactions</h2>
+        <div class="micro-cards">
+          <div class="micro-card" style="border-color:#4A8C7A40;background:#F0F5F2">
+            <h3>01 · The Morning Mirror</h3>
+            <p><strong>Format:</strong> Single-screen 60-second prompt, personalised to attachment style.</p>
+            <p><strong>Mechanic:</strong> Each morning, one reflection question tied to the user's style (e.g. for Anxious: "Before you check your messages today, name one thing you're proud of in yourself."). Respond with an emoji reaction or a sentence — no pressure.</p>
+            <p><strong>Why it works:</strong> Builds the habit of internal reference before external check — the core skill for moving from anxious to secure.</p>
+          </div>
+          <div class="micro-card" style="border-color:#B0606040;background:#F5F0F0">
+            <h3>02 · The Evening Pulse</h3>
+            <p><strong>Format:</strong> 1–10 mood slider + optional trigger tag + optional note. Takes 90 seconds.</p>
+            <p><strong>Mechanic:</strong> At a user-set time, a gentle push notification: "How did connection feel today?" The data feeds the progress dashboard. When a score drops to 3 or below, the Trigger Alert activates immediately.</p>
+            <p><strong>Why it works:</strong> Longitudinal mood tracking correlates strongly with therapeutic outcome. The user builds a map of their own patterns over time.</p>
+          </div>
+          <div class="micro-card" style="border-color:#7A6E9E40;background:#F2F0F5">
+            <h3>03 · The Repair Prompt</h3>
+            <p><strong>Format:</strong> Conditional trigger — appears only when a high-stress check-in is logged or a "conflict" trigger is selected.</p>
+            <p><strong>Mechanic:</strong> After a high-stress entry, the platform surfaces: "Is there something you could say or do in the next 24 hours to move toward connection — even a small thing?" If the user responds, the AI Coach offers to help craft it.</p>
+            <p><strong>Why it works:</strong> Repair — not the absence of conflict — is the hallmark of secure attachment. This micro-interaction builds the repair reflex.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="prd-section">
+        <h2>5. Trigger Alert Technical Logic</h2>
+        <p>A Trigger Alert fires when:</p>
+        <ul>
+          <li>Mood check-in score ≤ 3 (out of 10)</li>
+          <li>User selects a trigger tag signalling relational distress</li>
+          <li>Security score drops more than 10 points in a 7-day window</li>
+        </ul>
+        <h3>UI behaviour on alert</h3>
+        <ul>
+          <li>Full-width amber banner appears at the top of the current page with a style-specific grounding message.</li>
+          <li>Banner is non-dismissible for 60 seconds — prevents immediate avoidance.</li>
+          <li>After the lock, a dismiss button appears alongside two action options: "Open the Coach" and "Write it out" (private journal).</li>
+          <li>If the user has a therapist linked, a secondary notification is queued to the therapist's inbox (opt-in, mutual consent required).</li>
+          <li>For Disorganized users, the alert includes a brief grounding exercise (5-4-3-2-1 sensory method) before any text.</li>
+        </ul>
+        <h3>Data handling</h3>
+        <ul>
+          <li>Trigger events logged with timestamp and style-specific response provided.</li>
+          <li>Aggregate trigger data feeds the dashboard's Trigger Frequency chart.</li>
+          <li>No trigger data shared with third parties. Therapist access requires explicit user consent per event — not blanket permission.</li>
+        </ul>
+      </section>
+
+      <section class="prd-section">
+        <h2>6. Technical Architecture</h2>
+        <ul>
+          <li><strong>Backend:</strong> Go — stateless, performant, deployed as Vercel serverless function via <code>api/index.go</code>.</li>
+          <li><strong>State:</strong> Server-side sessions (gorilla/sessions with cookie store). Migrate to PostgreSQL for persistent user accounts in v2.</li>
+          <li><strong>Frontend:</strong> Server-rendered HTML templates (Go html/template) with vanilla JS. No framework dependency — fast initial load, zero hydration.</li>
+          <li><strong>AI Coach:</strong> Rule-based translation engine (v1) → LLM integration via Anthropic/OpenAI API (v2, with attachment-theory system prompt).</li>
+          <li><strong>Deployment:</strong> Vercel (Go serverless) via <code>vercel.json</code>. Static assets served from <code>/static/</code>.</li>
+          <li><strong>Auth (v2):</strong> Email magic-link authentication. No password storage. OAuth for therapist role verification.</li>
+        </ul>
+      </section>
+
+      <section class="prd-section">
+        <h2>7. Success Metrics</h2>
+        <ul>
+          <li>30-day retention rate ≥ 40% — driven by daily check-in streak mechanics</li>
+          <li>Average security score increase of +8 points over 4 weeks of consistent engagement</li>
+          <li>Coach usage: ≥ 3 messages translated per active user per month</li>
+          <li>Therapist NPS ≥ 50 from licensed users</li>
+          <li>Trigger alert follow-through rate ≥ 60% — user takes an action after the alert fires</li>
+        </ul>
+      </section>
+
+    </div>
+  </div>
+</div>
+{{end}}
