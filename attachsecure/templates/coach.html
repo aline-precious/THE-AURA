@@ -1,0 +1,87 @@
+{{template "layout" .}}
+{{define "content"}}
+<div class="coach-page">
+  <div class="container">
+    <div class="page-header">
+      <p class="eyebrow">AI Communication Coach</p>
+      <h1 class="page-title">Say what you mean<br>in a way they can hear</h1>
+      <p class="page-sub">Paste a message you're about to send. The coach reframes it based on your attachment style — reducing defensiveness and inviting connection.</p>
+    </div>
+
+    <div class="coach-grid">
+      <div class="coach-card coach-card-main">
+        <h2 class="dash-card-title">Message translator</h2>
+        <form method="POST" action="/coach/translate">
+          <div class="form-group">
+            <label class="form-label">Your attachment style</label>
+            <select name="style" class="form-select">
+              {{range .StyleOptions}}
+              <option value="{{.}}" {{if eq . $.Style}}selected{{end}}>{{if eq . "secure"}}Secure{{else if eq . "anxious"}}Anxious{{else if eq . "avoidant"}}Avoidant{{else}}Disorganized{{end}}</option>
+              {{end}}
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Your message</label>
+            <textarea name="message" class="form-textarea" placeholder="Type the message you're about to send…" rows="4">{{.Original}}</textarea>
+          </div>
+          <button type="submit" class="btn-primary">Translate message <span class="btn-arrow">→</span></button>
+        </form>
+        {{if .Translated}}
+        <div class="translation-box">
+          <p class="translation-label">Coach suggestion</p>
+          <div class="translation-result">{{nl2br .Translated}}</div>
+        </div>
+        {{end}}
+      </div>
+
+      <div class="coach-card">
+        <h2 class="dash-card-title">Dynamic Analyzer</h2>
+        <p class="coach-card-sub">Understand what happens when two attachment styles meet.</p>
+        <form method="GET" action="/coach">
+          <div class="form-group">
+            <label class="form-label">Your style</label>
+            <select name="style_a" class="form-select">
+              {{range .StyleOptions}}
+              <option value="{{.}}" {{if eq . $.Style}}selected{{end}}>{{if eq . "secure"}}Secure{{else if eq . "anxious"}}Anxious{{else if eq . "avoidant"}}Avoidant{{else}}Disorganized{{end}}</option>
+              {{end}}
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Partner's style</label>
+            <select name="partner" class="form-select">
+              {{range .StyleOptions}}
+              <option value="{{.}}" {{if eq . $.PartnerStyle}}selected{{end}}>{{if eq . "secure"}}Secure{{else if eq . "anxious"}}Anxious{{else if eq . "avoidant"}}Avoidant{{else}}Disorganized{{end}}</option>
+              {{end}}
+            </select>
+          </div>
+          <button type="submit" class="btn-primary">Analyze dynamic <span class="btn-arrow">→</span></button>
+        </form>
+        {{if .DynamicAnalysis}}
+        <div class="dynamic-box">
+          <p class="translation-label">Relationship dynamic</p>
+          <p class="dynamic-text">{{.DynamicAnalysis}}</p>
+        </div>
+        {{end}}
+      </div>
+
+      <div class="coach-card coach-tips">
+        <h2 class="dash-card-title">Style-specific tips</h2>
+        <div class="tip-style-badge" style="background:{{.StyleInfo.BgColor}};color:{{.StyleInfo.Color}}">
+          {{.StyleInfo.Label}} &nbsp;·&nbsp; {{.StyleInfo.Tagline}}
+        </div>
+        <p class="tip-label" style="margin-top:1.2rem">When you feel activated, try:</p>
+        {{if eq .Style "anxious"}}
+        <ul class="tip-list"><li>Name the feeling before expressing it</li><li>Ask: "What do I need right now?"</li><li>Wait 90 seconds before sending the message</li></ul>
+        {{else if eq .Style "avoidant"}}
+        <ul class="tip-list"><li>Add a return signal when withdrawing</li><li>Share one small feeling per conversation</li><li>Name when you're overwhelmed, not just gone</li></ul>
+        {{else if eq .Style "disorganized"}}
+        <ul class="tip-list"><li>Ground first: name 5 things you can see</li><li>It's okay to name the conflict itself</li><li>You don't have to act on any impulse now</li></ul>
+        {{else}}
+        <ul class="tip-list"><li>Be explicit — don't assume they know</li><li>Invite, don't rescue</li><li>Stay curious about their experience</li></ul>
+        {{end}}
+        <a href="/checkin" class="btn-ghost" style="margin-top:1.2rem;display:inline-flex">Daily check-in →</a>
+      </div>
+    </div>
+  </div>
+</div>
+{{end}}

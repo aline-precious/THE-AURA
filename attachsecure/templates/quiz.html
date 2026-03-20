@@ -1,0 +1,88 @@
+{{template "layout" .}}
+{{define "content"}}
+<div class="quiz-page">
+  <div class="hero-orb orb1"></div>
+  <div class="hero-orb orb2"></div>
+  <div class="quiz-container">
+    <div class="quiz-header">
+      <p class="eyebrow">Attachment Assessment</p>
+      <h1 class="quiz-title">Seven honest questions</h1>
+      <p class="quiz-intro">Choose the answer that feels most true — not the one you wish were true.</p>
+    </div>
+    <form id="quiz-form" method="POST" action="/quiz/submit">
+      {{range $i, $q := .Questions}}
+      <div class="q-card {{if gt $i 0}}q-hidden{{end}}" id="q-{{add $i 1}}">
+        <div class="q-progress-row">
+          <div class="q-progress-track">
+            <div class="q-progress-fill" style="width:{{pct (add $i 1) $.Total}}%"></div>
+          </div>
+          <span class="q-progress-label">{{add $i 1}} / {{$.Total}}</span>
+        </div>
+        <span class="q-deco-num">{{add $i 1}}</span>
+        <p class="q-category">{{$q.Category}}</p>
+        <h2 class="q-text">{{$q.Text}}</h2>
+        <div class="q-options">
+          {{range $q.ShuffledOptions}}
+          <label class="q-option">
+            <input type="radio" name="q{{add $i 1}}" value="{{.Value}}" class="q-radio">
+            <span class="q-option-text">{{.Label}}</span>
+          </label>
+          {{end}}
+        </div>
+        <div class="q-footer">
+          <span class="q-hint" id="hint-{{add $i 1}}">Select the answer that resonates most</span>
+          <div class="q-nav-row">
+            {{if gt $i 0}}
+            <button type="button" class="btn-ghost q-prev-btn" onclick="showCard({{$i}})">← Back</button>
+            {{end}}
+            {{if lt (add $i 1) $.Total}}
+            <button type="button" class="btn-primary q-next-btn" id="next-{{add $i 1}}" onclick="showCard({{add $i 2}})" disabled>
+              Continue <span class="btn-arrow">→</span>
+            </button>
+            {{else}}
+            <button type="submit" class="btn-primary" id="next-{{add $i 1}}" disabled>
+              See my result <span class="btn-arrow">→</span>
+            </button>
+            {{end}}
+          </div>
+        </div>
+      </div>
+      {{end}}
+    </form>
+  </div>
+</div>
+<script>
+var currentCard = 1;
+var totalCards = {{.Total}};
+
+function showCard(n) {
+  document.querySelectorAll('.q-card').forEach(function(c) { c.classList.add('q-hidden'); });
+  var card = document.getElementById('q-' + n);
+  if (card) {
+    card.classList.remove('q-hidden');
+    card.classList.add('q-anim');
+    setTimeout(function() { card.classList.remove('q-anim'); }, 400);
+    currentCard = n;
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+}
+
+document.getElementById('quiz-form').addEventListener('change', function(e) {
+  if (e.target.type !== 'radio') return;
+  var name = e.target.name; // "q1", "q2", etc
+  var num = parseInt(name.replace('q', ''));
+  var card = document.getElementById('q-' + num);
+  if (!card) return;
+  // Enable next button
+  var nextBtn = document.getElementById('next-' + num);
+  if (nextBtn) nextBtn.removeAttribute('disabled');
+  // Update hint
+  var hint = document.getElementById('hint-' + num);
+  if (hint) hint.textContent = 'Ready to continue';
+  // Highlight selected option
+  card.querySelectorAll('.q-option').forEach(function(opt) {
+    opt.classList.toggle('selected', opt.querySelector('input') === e.target);
+  });
+});
+</script>
+{{end}}

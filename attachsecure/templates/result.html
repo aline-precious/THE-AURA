@@ -1,0 +1,107 @@
+{{template "layout" .}}
+{{define "content"}}
+<div class="result-page">
+  <div class="hero-orb orb1" style="background:{{.StyleInfo.Color}}"></div>
+  <div class="hero-orb orb2"></div>
+  <div class="result-container">
+    <div class="result-card" id="result-card" style="opacity:0;transform:translateY(20px)">
+      <div class="result-accent-bar" style="background:{{.StyleInfo.Color}}"></div>
+      <p class="eyebrow" style="color:{{.StyleInfo.Color}}">Your attachment style</p>
+      <h1 class="result-type">{{.StyleInfo.Label}}</h1>
+      <p class="result-tagline">{{.StyleInfo.Tagline}}</p>
+      <div class="result-divider"></div>
+      <p class="result-summary">{{.StyleInfo.Summary}}</p>
+
+      <div class="score-section">
+        <p class="traits-label">Style breakdown</p>
+        <div class="score-bars">
+          {{range .ScoreBreakdown}}
+          <div class="score-bar-row">
+            <span class="score-bar-label">{{.Label}}</span>
+            <div class="score-bar-track">
+              <div class="score-bar-fill" style="width:0%;background:{{.Color}}" data-pct="{{.Pct}}"></div>
+            </div>
+            <span class="score-bar-pct">{{.Pct}}%</span>
+          </div>
+          {{end}}
+        </div>
+      </div>
+
+      <div class="security-score-section">
+        <p class="traits-label">Security score</p>
+        <div class="sec-score-ring-wrap">
+          <svg class="sec-score-ring" viewBox="0 0 120 120" width="120" height="120">
+            <circle cx="60" cy="60" r="50" fill="none" stroke="#EDE9E3" stroke-width="8"/>
+            <circle id="score-circle" cx="60" cy="60" r="50" fill="none" stroke="{{.StyleInfo.Color}}"
+              stroke-width="8" stroke-dasharray="314" stroke-dashoffset="314"
+              stroke-linecap="round" transform="rotate(-90 60 60)"
+              data-score="{{.SecurityScore}}"/>
+          </svg>
+          <div class="sec-score-label">
+            <span class="sec-score-num">{{.SecurityScore}}</span>
+            <span class="sec-score-sub">/ 100</span>
+          </div>
+        </div>
+        <p class="sec-score-desc">Your baseline security score. It grows as you engage with daily check-ins, coaching, and reflection.</p>
+      </div>
+
+      <div class="result-divider"></div>
+
+      <div class="traits-section" style="margin-bottom:1.5rem">
+        <p class="traits-label">What you bring to relationships</p>
+        <ul class="traits-list">
+          {{range .StyleInfo.Strengths}}
+          <li><span class="trait-mark" style="background:{{$.StyleInfo.Color}}"></span>{{.}}</li>
+          {{end}}
+        </ul>
+      </div>
+
+      <div class="growth-box">
+        <p class="growth-label">An invitation for growth</p>
+        <p class="growth-text">{{.StyleInfo.Growth}}</p>
+      </div>
+
+      {{if .TodayPrompt}}
+      <div class="prompt-box" style="border-color:{{.StyleInfo.Color}}30;background:{{.StyleInfo.BgColor}}">
+        <p class="prompt-label">Today's reflection</p>
+        <p class="prompt-text">{{.TodayPrompt}}</p>
+      </div>
+      {{end}}
+
+      <p class="closing-note">{{.StyleInfo.Note}}</p>
+
+      <div class="result-actions">
+        <a href="/dashboard" class="btn-primary">Go to your dashboard <span class="btn-arrow">→</span></a>
+        <a href="/coach" class="btn-ghost">Open the AI coach</a>
+        <a href="/quiz" class="btn-ghost-sm">Retake quiz</a>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+window.addEventListener('load', function() {
+  var card = document.getElementById('result-card');
+  if (card) {
+    setTimeout(function() {
+      card.style.transition = 'opacity 0.6s ease, transform 0.6s cubic-bezier(0.4,0,0.2,1)';
+      card.style.opacity = '1';
+      card.style.transform = 'translateY(0)';
+    }, 80);
+  }
+  setTimeout(function() {
+    document.querySelectorAll('.score-bar-fill').forEach(function(el) {
+      var pct = el.getAttribute('data-pct');
+      el.style.transition = 'width 0.9s cubic-bezier(0.4,0,0.2,1)';
+      el.style.width = pct + '%';
+    });
+    var circle = document.getElementById('score-circle');
+    if (circle) {
+      var score = parseInt(circle.getAttribute('data-score'));
+      var offset = 314 - (score / 100) * 314;
+      circle.style.transition = 'stroke-dashoffset 1.2s cubic-bezier(0.4,0,0.2,1)';
+      circle.style.strokeDashoffset = offset;
+    }
+  }, 300);
+});
+</script>
+{{end}}

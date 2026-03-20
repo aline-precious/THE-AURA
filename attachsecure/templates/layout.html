@@ -1,0 +1,33 @@
+{{define "layout"}}<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{.Title}}</title>
+  <meta name="description" content="Understand your attachment style and grow toward earned security.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;450;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/main.css">
+</head>
+<body>
+  <nav class="nav">
+    <a href="/" class="nav-brand">Attach<em>Secure</em></a>
+    <div class="nav-links" id="nav-links">
+      <a href="/quiz" class="nav-link {{if eq .CurrentPath "/quiz"}}active{{end}}">Quiz</a>
+      <a href="/coach" class="nav-link {{if eq .CurrentPath "/coach"}}active{{end}}">Coach</a>
+      <a href="/checkin" class="nav-link {{if eq .CurrentPath "/checkin"}}active{{end}}">Check-in</a>
+      <a href="/dashboard" class="nav-link {{if eq .CurrentPath "/dashboard"}}active{{end}}">Dashboard</a>
+      <a href="/about" class="nav-link {{if eq .CurrentPath "/about"}}active{{end}}">About</a>
+    </div>
+    <button class="nav-toggle" onclick="document.getElementById('nav-links').classList.toggle('open')">☰</button>
+  </nav>
+  <main>{{block "content" .}}{{end}}</main>
+  <footer class="footer">
+    <div class="footer-inner">
+      <span class="footer-brand">Attach<em>Secure</em></span>
+      <span class="footer-copy">A platform for relational growth &nbsp;·&nbsp; <a href="/prd">PRD</a> &nbsp;·&nbsp; <a href="/about">About</a></span>
+    </div>
+  </footer>
+  <script src="/static/js/main.js"></script>
+</body>
+</html>{{end}}
